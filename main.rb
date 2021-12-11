@@ -6,12 +6,12 @@ gemfile(true) do
   git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
   # Activate the gem you are reporting the issue against.
-  gem "activerecord", "6.0.0"
+  gem "activerecord",  :path => '/Users/asan/lab/oss/rails'
   gem "sqlite3"
 end
 
 require "active_record"
-require "minitest/autorun"
+# require "minitest/autorun"
 require "logger"
 
 # This connection will do for database-independent bug reports.
@@ -35,13 +35,10 @@ class Comment < ActiveRecord::Base
   belongs_to :post
 end
 
-class BugTest < Minitest::Test
-  def test_association_stuff
-    post = Post.create!
-    post.comments << Comment.create!
+puts "===== start debug print ============"
 
-    assert_equal 1, post.comments.count
-    assert_equal 1, Comment.count
-    assert_equal post.id, Comment.first.post.id
-  end
-end
+post = Post.preload(:comment)
+
+binding.irb
+
+p post.comments.count
