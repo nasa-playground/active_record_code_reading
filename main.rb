@@ -8,6 +8,7 @@ gemfile(true) do
   # Activate the gem you are reporting the issue against.
   gem "activerecord",  :path => '/Users/asan/lab/oss/rails'
   gem "sqlite3"
+  gem "debug", github: "ruby/debug"
 end
 
 require "active_record"
@@ -37,10 +38,14 @@ end
 
 puts "===== start debug print ============"
 
+
 p = Post.create!
-Comment.create!()
-post = Post.preload(:comment)
+Comment.create!(post_id: p.id)
+Comment.create!(post_id: p.id)
+Comment.create!(post_id: p.id)
 
-binding.irb
+posts = Post.preload(:comments)
+posts.inspect
 
-# p post.comments.count
+binding.b
+p posts.first.comments.count
