@@ -37,8 +37,10 @@ end
 
 puts "===== start debug print ============"
 
+p = Post.create!
+Comment.create!()
 post = Post.preload(:comment)
 
 binding.irb
 
-p post.comments.count
+# p post.comments.count
